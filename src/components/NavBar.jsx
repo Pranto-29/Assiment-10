@@ -8,7 +8,7 @@ import { FaUser, FaGear } from "react-icons/fa6";
 import { LuRotate3D } from "react-icons/lu";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-
+import { IoFastFood } from "react-icons/io5";
 const NavBar = () => {
   const { user, signOutUser } = useContext(AuthContext);
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
@@ -27,7 +27,7 @@ const NavBar = () => {
       {/* Navbar Start */}
       <div className="navbar-start">
         <Link to="/" className="flex items-center gap-2 text-xl font-bold">
-          <LuRotate3D /> PlateShare
+         <IoFastFood size={22} color="red" /> TasteTrail
         </Link>
       </div>
 

@@ -13,7 +13,7 @@ const Footer = () => {
 
 
   return (
-    <footer className="bg-linear-to-r from-pink-300 to-red-600 py-8 px-4  rounded-xl mt-20">
+    <footer className="bg-linear-to-r pink-200 to-red-600 py-8 px-4  rounded-xl mt-20">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-4 gap-6">
         <div>
           <div className="flex items-center space-x-2 text-white">
@@ -21,9 +21,9 @@ const Footer = () => {
       <span className="text-xl font-bold text-gray-800 dark:text-gray-200">PlantShare</span>
     </div>
           <ul className="space-y-2 mt-4">
-            <li><Link to="/all-models" className="text-gray-600 dark:text-gray-200 hover:text-blue-600">All Models</Link></li>
-            <li><Link to="/add-model" className="text-gray-600 dark:text-gray-200 hover:text-blue-600">Add Model</Link></li>
-            <li><Link to="/profile" className="text-gray-600 dark:text-gray-200 hover:text-blue-600">Profile</Link></li>
+            <li><Link to="/all-models" className="text-gray-600 dark:text-gray-200 hover:text-blue-600">Home</Link></li>
+            <li><Link to="/add-model" className="text-gray-600 dark:text-gray-200 hover:text-blue-600">Avilevl Food</Link></li>
+            <li><Link to="/profile" className="text-gray-600 dark:text-gray-200 hover:text-blue-600">Add Food</Link></li>
             <li><Link to="/auth/login" className="text-gray-600 dark:text-gray-200 hover:text-blue-600">Login</Link></li>
           </ul>
         </div>
@@ -65,7 +65,7 @@ const Footer = () => {
           <div>
             <a 
               href="mailto:support@nihonlearn.com" 
-              className="flex items-center text-gray-600 dark:text-gray-200 hover:text-blue-600"
+              className="flex items-center text-gray-600 dark:text-gray-400 hover:text-blue-600"
             >
               <Mail size={18} className="mr-2" /> 23pranto729@gmail.com
             </a>
@@ -75,7 +75,7 @@ const Footer = () => {
 
 
       <div className="border-t lg:mb-0 md:mb-0 mb-20  mt-8 pt-4 text-center">
-        <p className="text-sm text-gray-600 ">
+        <p className="text-sm text-white-600 ">
           © {currentYear} PlantShare Project. All Rights Reserved.
           <span className="ml-4">
             <Link to="/" className="hover:text-blue-600 mr-3">Privacy Policy</Link>

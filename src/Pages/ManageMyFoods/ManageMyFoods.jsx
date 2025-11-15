@@ -51,14 +51,14 @@ const ManageMyFoods = () => {
     });
   };
 
-  if (loading) return <p className="text-center mt-10">Loading foods...</p>;
+  if (loading) return <p className="text-center mt-10 text-blue-500">Loading foods...</p>;
   if (foods.length === 0) return <p className="text-center mt-10">No foods added yet.</p>;
 
   return (
     <div className="max-w-6xl mx-auto mt-10 overflow-x-auto">
-      <h1 className="text-3xl font-bold mb-5">Manage My Foods</h1>
+      <h1 className="text-3xl font-bold mb-5 text-center justify-center items-center font-bold">Manage My Foods</h1>
 
-      <table className="table w-full">
+      <table className="table w-full text-pink-400">
         <thead>
           <tr>
             {foods.length > 0 &&
@@ -84,7 +84,7 @@ const ManageMyFoods = () => {
                 ))
               }
 
-              <td className="flex gap-2">
+              <td className="flex gap-2 text-pink-400">
                 <Link to={`/update-food/${food._id}`}>
                   <button className="btn btn-sm btn-info">Update</button>
                 </Link>

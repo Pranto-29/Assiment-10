@@ -180,7 +180,7 @@ const AddModal = () => {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name Field */}
           <div>
-            <label className="label font-medium">Name</label>
+            <label className="label font-medium text-pink-400">Name</label>
             <input
               type="text"
               name="name"
@@ -192,7 +192,7 @@ const AddModal = () => {
 
           {/* Category Dropdown */}
           <div>
-            <label className="label font-medium">Category</label>
+            <label className="label font-medium text-pink-400">Category</label>
             <select
               defaultValue={""}
               name="category"
@@ -254,7 +254,7 @@ const AddModal = () => {
             Add Food
           </button>
         </form>
-        
+
       </div>
     </div>
   );
