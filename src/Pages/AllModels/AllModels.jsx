@@ -80,9 +80,7 @@ const AllModels = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500 mt-10">
-          No models found.
-        </p>
+        <p className="text-center text-gray-500 mt-10">No models found. </p>
       )}
     </div>
   );
