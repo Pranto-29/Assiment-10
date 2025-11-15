@@ -254,6 +254,7 @@ const AddModal = () => {
             Add Food
           </button>
         </form>
+        
       </div>
     </div>
   );
