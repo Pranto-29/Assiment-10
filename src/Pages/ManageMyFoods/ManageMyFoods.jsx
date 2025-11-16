@@ -85,9 +85,13 @@ const ManageMyFoods = () => {
               }
 
               <td className="flex gap-2 text-pink-400">
-                <Link to={`/update-food/${food._id}`}>
+                {/* <Link to={`/update-food/${food._id}`}>
                   <button className="btn btn-sm btn-info">Update</button>
-                </Link>
+                </Link> */}
+                <Link to={`/update-food/${food._id}`}>
+  <button className="btn btn-sm btn-info">Update</button>
+</Link>
+
                 <button
                   onClick={() => handleDelete(food._id)}
                   className="btn btn-sm btn-error"
