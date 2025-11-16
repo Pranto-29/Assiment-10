@@ -7,7 +7,6 @@ import {
 } from 'lucide-react';
 import { LuRotate3D } from 'react-icons/lu';
 
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
