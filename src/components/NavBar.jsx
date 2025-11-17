@@ -22,7 +22,7 @@ const NavBar = () => {
   const handleLogout = () => signOutUser();
 
   return (
-    <div className="navbar py-2 px-4 shadow-sm rounded-full glass-card max-w-7xl mx-auto">
+    <div className="navbar py-2 px-4 shadow-sm rounded-full glass-card max-w-7xl mx-auto bg:pink">
 
       {/* Navbar Start */}
       <div className="navbar-start">

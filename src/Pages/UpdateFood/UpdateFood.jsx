@@ -67,7 +67,7 @@ const UpdateFood = () => {
           name="foodName"
           defaultValue={food.title}
           placeholder="Food Name"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full text-red "
         />
         <input
           type="number"
@@ -92,7 +92,7 @@ const UpdateFood = () => {
         />
         <textarea
           name="description"
-          defaultValue={food.description}
+          // defaultValue={food.description}
           placeholder="Description"
           className="input input-bordered w-full"
         />
