@@ -103,6 +103,24 @@ export const router = createBrowserRouter([
           }
         },
       },
+       {
+        path: "/update-model/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateModel />
+          </PrivateRoute>
+        ),
+        loader: async ({ params }) => {
+          try {
+            const res = await fetch(`http://localhost:4000/models/${params.id}`);
+            if (!res.ok) throw new Error("Failed to load model for update");
+            return res.json();
+          } catch (err) {
+            console.error("Update Model Loader Error:", err);
+            return {};
+          }
+        },
+      },
       {
         path: "/update-food/:id", // <-- Add UpdateFood route
         element: (
@@ -158,3 +176,6 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+
+

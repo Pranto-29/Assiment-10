@@ -39,7 +39,7 @@ const MyFoodRequests = () => {
 
   if (loading)
     return (
-      <div className="text-center py-20 loading loading-bars loading-xl bg-amber-500">
+      <div className="text-center py-20 loading loading-bars loading-xl bg-blue-500">
         Loading your requests...
       </div>
     );
@@ -48,14 +48,14 @@ const MyFoodRequests = () => {
     return <div className="text-center py-20 text-red-500">{error}</div>;
 
   return (
-    <div className="px-4 md:px-8 lg:px-16 py-8 bg">
+    <div className="px-4 md:px-8 lg:px-16 py-8 bg-blue-400">
       <h1 className="text-3xl font-bold text-center mb-6">My Food Requests</h1>
 
       {requests.length > 0 ? (
-        <ul className="space-y-4 n bg-pink-400 border-2 rounded-2xl">
+        <ul className="space-y-4 n bg-pink-400 border-2 rounded-2xl box">
           {requests.map((req) => (
             <li key={req._id} className="border p-4 rounded shadow">
-              <p>
+              <p className="text-green-500 font-bold">
                 <strong>Food:</strong> {req.foodName}
               </p>
               <p>
