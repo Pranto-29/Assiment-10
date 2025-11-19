@@ -80,6 +80,7 @@ const ManageMyFoods = () => {
                     {key === "expireDate" ? new Date(food[key]).toLocaleDateString() : food[key]}
                   </td>
                 ))}
+                
               <td className="flex gap-2">
                 <Link to={`/update-food/${food._id}`}>
                   <button className="btn btn-sm btn-info">Update</button>
