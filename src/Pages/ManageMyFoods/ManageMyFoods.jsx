@@ -11,81 +11,78 @@ const ManageMyFoods = () => {
   const [foods, setFoods] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch user's foods
   useEffect(() => {
     if (!user?.email) return;
 
-    setLoading(true);
     fetch(`http://localhost:4000/manage-my-foods?email=${user.email}`)
       .then(res => res.json())
       .then(data => {
-        setFoods(Array.isArray(data.data) ? data.data : []);
+        setFoods(data.data || []);
         setLoading(false);
       })
       .catch(err => {
-        console.error("Fetch error:", err);
-        setFoods([]);
+        console.error(err);
         setLoading(false);
       });
   }, [user]);
 
-  // DELETE function
   const handleDelete = (id) => {
     Swal.fire({
       title: "Delete this food?",
       text: "This action cannot be undone!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Yes, delete",
-    }).then((result) => {
+      confirmButtonText: "Yes, delete"
+    }).then(result => {
       if (result.isConfirmed) {
         fetch(`http://localhost:4000/foods/${id}`, { method: "DELETE" })
           .then(res => res.json())
-          .then((data) => {
-            if (data.success) {
-              Swal.fire("Deleted!", "Food has been deleted.", "success");
-              setFoods(prev => prev.filter(item => item._id !== id));
-            }
-          })
-          .catch(err => console.error("Delete error:", err));
+          .then(() => setFoods(prev => prev.filter(f => f._id !== id)));
       }
     });
   };
 
-  if (loading) return <p className="text-center mt-10 text-blue-500">Loading foods...</p>;
+  if (loading) return <p className="text-center mt-10">Loading foods...</p>;
   if (foods.length === 0) return <p className="text-center mt-10">No foods added yet.</p>;
 
   return (
     <div className="max-w-6xl mx-auto mt-10 overflow-x-auto">
       <h1 className="text-3xl font-bold mb-5 text-center">Manage My Foods</h1>
-
-      <table className="table w-full text-pink-400">
+      <table className="table table-zebra w-full text-center">
         <thead>
           <tr>
-            {foods.length > 0 &&
-              Object.keys(foods[0])
-                .filter(key => key !== "_id")
-                .map(key => <th key={key}>{key}</th>)}
+            <th>Image</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Price Min</th>
+            <th>Price Max</th>
             <th>Actions</th>
           </tr>
         </thead>
-
         <tbody>
           {foods.map(food => (
             <tr key={food._id}>
-              {Object.keys(food)
-                .filter(key => key !== "_id")
-                .map(key => (
-                  <td key={key}>
-                    {key === "expireDate" ? new Date(food[key]).toLocaleDateString() : food[key]}
-                  </td>
-                ))}
-                
-              <td className="flex gap-2">
+              <td>
+                <img 
+                  src={food.thumbnail || "https://via.placeholder.com/80"} 
+                  alt={food.name} 
+                  className="w-16 h-16 object-cover rounded"
+                />
+              </td>
+              <td>{food.name}</td>
+              <td>{food.category}</td>
+              <td>{food.description}</td>
+              <td>৳{food.price_min}</td>
+              <td>৳{food.price_max}</td>
+              <td className="flex gap-2 justify-center">
                 <Link to={`/update-food/${food._id}`}>
                   <button className="btn btn-sm btn-info">Update</button>
                 </Link>
-                <button onClick={() => handleDelete(food._id)} className="btn btn-sm btn-error">
+                <button 
+                  onClick={() => handleDelete(food._id)} 
+                  className="btn btn-sm btn-error"
+                >
                   Delete
                 </button>
               </td>
@@ -98,89 +95,3 @@ const ManageMyFoods = () => {
 };
 
 export default ManageMyFoods;
-
-
-// import { useContext, useEffect, useState } from "react";
-// import { AuthContext } from "../../context/AuthContext";
-// import Swal from "sweetalert2";
-// import { Link } from "react-router-dom";
-// import AddModal from "../AddModal/AddModal";
-
-// const ManageMyFoods = () => {
-//   const { user } = useContext(AuthContext);
-//   const [foods, setFoods] = useState([]);
-//   const [loading, setLoading] = useState(true);
-
-//   const fetchFoods = () => {
-//     if (!user?.email) return;
-//     setLoading(true);
-//     fetch(`http://localhost:4000/manage-my-foods?email=${user.email}`)
-//       .then(res => res.json())
-//       .then(data => {
-//         setFoods(Array.isArray(data.data) ? data.data : []);
-//         setLoading(false);
-//       })
-//       .catch(err => {
-//         console.error(err);
-//         setFoods([]);
-//         setLoading(false);
-//       });
-//   };
-
-//   useEffect(() => {
-//     fetchFoods();
-//   }, [user]);
-
-//   const handleDelete = (id) => {
-//     Swal.fire({
-//       title: "Delete this food?",
-//       text: "This action cannot be undone!",
-//       icon: "warning",
-//       showCancelButton: true,
-//       confirmButtonText: "Yes, delete"
-//     }).then(result => {
-//       if (result.isConfirmed) {
-//         fetch(`http://localhost:4000/foods/${id}`, { method: "DELETE" })
-//           .then(res => res.json())
-//           .then(data => {
-//             if (data.success) {
-//               Swal.fire("Deleted!", "Food deleted.", "success");
-//               fetchFoods(); // refresh list
-//             }
-//           });
-//       }
-//     });
-//   };
-
-//   if (loading) return <p className="text-center mt-10">Loading...</p>;
-//   if (foods.length === 0) return <p className="text-center mt-10">No foods yet.</p>;
-
-//   return (
-//     <div className="max-w-6xl mx-auto mt-10">
-//       <AddModal onAdded={fetchFoods} />
-//       <table className="table w-full mt-5">
-//         <thead>
-//           <tr>
-//             {Object.keys(foods[0]).filter(k => !["_id", "type"].includes(k)).map(k => <th key={k}>{k}</th>)}
-//             <th>Actions</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {foods.map(food => (
-//             <tr key={food._id}>
-//               {Object.keys(food).filter(k => !["_id", "type"].includes(k)).map(k => (
-//                 <td key={k}>{food[k]}</td>
-//               ))}
-//               <td className="flex gap-2">
-//                 <Link to={`/update-food/${food._id}`} className="btn btn-sm btn-info">Update</Link>
-//                 <button onClick={() => handleDelete(food._id)} className="btn btn-sm btn-error">Delete</button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// };
-
-// export default ManageMyFoods;
