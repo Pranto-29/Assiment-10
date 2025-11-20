@@ -380,6 +380,7 @@ const UpdateFood = () => {
           className="input input-bordered w-full rounded-lg"
           required
         />
+        
         <input
           type="text"
           value={food.category || ""}
