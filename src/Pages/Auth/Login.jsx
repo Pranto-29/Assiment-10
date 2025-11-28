@@ -1,91 +1,104 @@
-import { use } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { FaGoogle } from "react-icons/fa";
 
 const Login = () => {
-  const { signInUser, signInWithGoogle } = use(AuthContext);
-
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location);
 
   const handleLogIn = (event) => {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    console.log(email, password);
     signInUser(email, password)
       .then((result) => {
-        console.log(result.user);
         event.target.reset();
-        navigate(location.state || "/");
+        navigate(location.state?.from || "/");
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((result) => {
-        console.log(result.user);
-        navigate(location?.state || "/");
+        navigate(location.state?.from || "/");
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => console.error(error));
   };
 
   return (
-    <div className="card bg-base-100  w-full mx-auto max-w-sm shrink-0 shadow-2xl border border-gray-200">
-      <div className="card-body">
-        <h1 className="text-3xl font-bold text-center">Login</h1>
-        <form onSubmit={handleLogIn}>
-          <fieldset className="fieldset">
-   
-            <label className="label">Email</label>
+    <div className="flex justify-center items-center min-h-screen px-4">
+      <div className="card w-full max-w-md shadow-2xl border border-gray-200 rounded-2xl p-6 bg-base-100">
+        <h1 className="text-3xl font-bold text-center mb-6">Login</h1>
+
+        {/* Login Form */}
+        <form onSubmit={handleLogIn} className="space-y-4">
+          <div className="flex flex-col">
+            <label className="label font-medium">Email</label>
             <input
               type="email"
               name="email"
-              className="input rounded-full focus:border-0 focus:outline-gray-200"
-              placeholder="Email"
+              required
+              placeholder="Enter your email"
+              className="input input-bordered rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
+          </div>
 
-            <label className="label">Password</label>
+          <div className="flex flex-col">
+            <label className="label font-medium">Password</label>
             <input
               type="password"
               name="password"
-               className="input rounded-full focus:border-0 focus:outline-gray-200"
-              placeholder="Password"
+              required
+              placeholder="Enter your password"
+              className="input input-bordered rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
-            <div>
-              <a className="link link-hover">Forgot password?</a>
-            </div>
-            <button className="btn text-white mt-4 rounded-full bg-linear-to-r from-pink-500 to-red-600">
-              Login
-            </button>
-          </fieldset>
+          </div>
+
+          <div className="text-right">
+            <a href="#" className="link link-hover text-sm">
+              Forgot password?
+            </a>
+          </div>
+
+          <button
+            type="submit"
+            className="btn w-full rounded-full bg-gradient-to-r from-pink-500 to-red-600 text-white hover:from-red-600 hover:to-pink-500 transition-all"
+          >
+            Login
+          </button>
         </form>
 
+        {/* Divider */}
+        <div className="divider">OR</div>
+
+        {/* Google Login */}
         <button
           onClick={handleGoogleSignIn}
-          className="btn bg-white rounded-full text-black border-[#e5e5e5]"
+          className="btn w-full rounded-full bg-white text-black border border-gray-300 flex items-center justify-center gap-2 hover:bg-gray-100"
         >
-          <FaGoogle />
-          Login with Google
+          <FaGoogle /> Login with Google
         </button>
-        <p className="text-center">
-          New to our website? Please  <Link
-            className="text-blue-500 hover:text-blue-800"
+
+        {/* Register Link */}
+        <p className="text-center mt-4 text-sm">
+          New to TasteTrail?{" "}
+          <Link
+            className="text-pink-500 hover:text-red-500 font-medium"
             to="/auth/register"
           >
-             Register
+            Register
           </Link>
         </p>
       </div>
     </div>
   );
 };
+
 export default Login;

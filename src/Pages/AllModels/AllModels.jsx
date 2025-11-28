@@ -1,122 +1,98 @@
 
-// // // // import { useLoaderData } from "react-router-dom";
-// // // // import { ModelCard } from "../../components/ModelCard";
-// // // // import { useState, useEffect, useContext } from "react";
-// // // // import { AuthContext } from "../../context/AuthContext";
-// // // // import LoadingSpinner from "../../components/LodingSpinner/LodingSpinner";
 
-// // // // const AllModels = () => {
-// // // //   const data = useLoaderData()
-// // // //   console.log(data)
-// // // //   const loaderData = useLoaderData();
-// // // //   const initialModels = loaderData?.data || loaderData || [];
-// // // //   const [models, setModels] = useState(initialModels);
-// // // //   const [loading, setLoading] = useState(false);
-// // // //   const { user } = useContext(AuthContext);
+// import { useLoaderData } from "react-router-dom";
+// import { ModelCard } from "../../components/ModelCard";
+// import { useState, useEffect, useContext } from "react";
+// import { AuthContext } from "../../context/AuthContext";
+// import LoadingSpinner from "../../components/LodingSpinner/LodingSpinner";
 
-// // // //   useEffect(() => {
-// // // //     setModels(initialModels);
-// // // //   }, [loaderData]);
+// const AllModels = () => {
+//   const loaderData = useLoaderData();
+//   const initialModels = loaderData?.data || loaderData || [];
+//   const [models, setModels] = useState(initialModels);
+//   const [loading, setLoading] = useState(false);
+//   const { user } = useContext(AuthContext);
 
-// // // //   const handleSearch = async (e) => {
-// // // //     e.preventDefault();
-// // // //     const search_text = e.target.search.value.trim();
-// // // //     if (!search_text) return;
+//   // Update models when loaderData changes
+//   useEffect(() => {
+//     setModels(initialModels);
+//   }, [loaderData]);
 
-// // // //     setLoading(true);
-// // // //     try {
-// // // //       const res = await fetch(`http://localhost:4000/search?search=${search_text}`);
-// // // //       const json = await res.json();
-// // // //       setModels(json.data || []);
-// // // //     } catch (err) {
-// // // //       console.error("Search Error:", err);
-// // // //     } finally {
-// // // //       setLoading(false);
-// // // //     }
-// // // //   };
-// // // // if (loading) return <LoadingSpinner height="h-64" />; // <-- spinner here
+//   // Search handler
+//   const handleSearch = (e) => {
+//     e.preventDefault();
+//     const search_text = e.target.search.value.trim().toLowerCase();
 
- 
-// // // //   const filteredModels = models.filter(model => model.email !== "unknown"); 
- 
-// // // //   return (
-// // // //     <div className="px-4 md:px-8 lg:px-16 py-8">
-// // // //       {/* Header */}
-// // // //       <div className="text-center mb-6">
-// // // //         <h1 className="text-3xl font-bold">All Foods</h1>
-// // // //         <p className="text-gray-500 mt-2">Explore food from various categories.</p>
-// // // //       </div>
-      
+//     if (!search_text) {
+//       setModels(initialModels); 
+//       return;
+//     }
 
-// // // //       {/* Search Bar */}
-// // // //       <form
-// // // //         onSubmit={handleSearch}
-// // // //         className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10"
-// // // //       >
-// // // //         <input
-// // // //           type="search"
-// // // //           name="search"
-// // // //           placeholder="Search models..."
-// // // //           className="w-full sm:w-80 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
-// // // //         />
-// // // //         <button
-// // // //           type="submit"
-// // // //           className="px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 to-red-600 text-white font-semibold hover:from-red-600 hover:to-pink-500 transition-all"
-// // // //         >
-// // // //           {loading ? "Searching..." : "Search"}
-// // // //         </button>
-// // // //       </form>
+//     setLoading(true);
 
-// // // //       {/* Models Grid */}
-// // // //       {loading ? (
-// // // //         <div className="flex justify-center items-center min-h-[200px]">
-// // // //           <span className="loading loading-spinner loading-lg text-primary"></span>
-// // // //         </div>
-// // // //       ) : filteredModels.length > 0 ? (
-// // // //         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-// // // //           {filteredModels.map((model) => (
-// // // //             <ModelCard
-// // // //               key={model._id}
-// // // //               model={model}
-// // // //               canDelete={user?.email === model.email} 
-// // // //             />
-// // // //           ))}
-// // // //         </div>
-// // // //       ) : (
-// // // //         <p className="text-center text-gray-500 mt-10">No models found. </p>
-// // // //       )}
-// // // //     </div>
-// // // //   );
-// // // // };
+//     // Fixed: use `title` instead of `name`
+//     const filtered = initialModels.filter(model =>
+//       model.title?.toLowerCase().includes(search_text)
+//     );
 
+//     setModels(filtered);
+//     setLoading(false);
+//   };
 
-// // // // export default AllModels;
+//   return (
+//     <div className="px-4 md:px-8 lg:px-16 py-8">
+//       {/* Header */}
+//       <div className="text-center mb-6">
+//         <h1 className="text-3xl font-bold">All Foods</h1>
+//         <p className="text-gray-500 mt-2">Explore food from various categories.</p>
+//       </div>
 
-// // import { useLoaderData } from "react-router-dom";
-// // import { ModelCard } from "../../components/ModelCard";
-// // import { useState, useEffect, useContext } from "react";
-// // import { AuthContext } from "../../context/AuthContext";
-// // import LoadingSpinner from "../../components/LodingSpinner/LodingSpinner";
+//       {/* Search Bar */}
+//       <form
+//         onSubmit={handleSearch}
+//         className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10"
+//       >
+//         <input
+//           type="search"
+//           name="search"
+//           placeholder="Search foods..."
+//           className="w-full sm:w-80 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
+//         />
+//         <button
+//           type="submit"
+//           className="px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 to-red-600 text-white font-semibold hover:from-red-600 hover:to-pink-500 transition-all"
+//         >
+//           {loading ? "Searching..." : "Search"}
+//         </button>
+//       </form>
 
-// // const AllModels = () => {
-// //   const loaderData = useLoaderData();
-// //   const initialModels = loaderData?.data || loaderData || [];
-// //   const [models, setModels] = useState(initialModels);
-// //   const [loading, setLoading] = useState(false);
-// //   const { user } = useContext(AuthContext);
+//       {/* Models Grid */}
+//       {loading ? (
+//         <div className="flex justify-center items-center min-h-[200px]">
+//           <LoadingSpinner height="h-64" />
+//         </div>
+//       ) : models.length > 0 ? (
+//         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+//           {models.map((model) => (
+//             <ModelCard
+//               key={model._id}
+//               model={model}
+//               canDelete={user?.email === model.email}
+//             />
+//           ))}
+//         </div>
+//       ) : (
+//         <p className="text-center text-gray-500 mt-10">No foods found.</p>
+//       )}
+//     </div>
+//   );
+// };
 
-// //   useEffect(() => {
-// //     setModels(initialModels);
-// //   }, [loaderData]);
-
-// //   const handleSearch = async (e) => {
-// //     e.preventDefault();
-// //     const search_text = e.target.search.value.trim();
-
+// export default AllModels;
 
 
 import { useLoaderData } from "react-router-dom";
-import { ModelCard } from "../../components/ModelCard";
+import ModelCard from "../../components/ModelCard";
 import { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import LoadingSpinner from "../../components/LodingSpinner/LodingSpinner";
@@ -128,51 +104,55 @@ const AllModels = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useContext(AuthContext);
 
+  // Update models when loaderData changes
   useEffect(() => {
     setModels(initialModels);
   }, [loaderData]);
 
+  // Search handler
   const handleSearch = (e) => {
     e.preventDefault();
     const search_text = e.target.search.value.trim().toLowerCase();
 
     if (!search_text) {
-      setModels(initialModels); 
+      setModels(initialModels);
       return;
     }
 
     setLoading(true);
-   
-    const filtered = initialModels.filter(model =>
-      model.name?.toLowerCase().includes(search_text) 
+
+    const filtered = initialModels.filter((model) =>
+      model.title?.toLowerCase().includes(search_text)
     );
+
     setModels(filtered);
     setLoading(false);
   };
-  console.log(models)
 
   return (
-    <div className="px-4 md:px-8 lg:px-16 py-8">
+    <div className="px-4 sm:px-6 lg:px-12 py-8">
       {/* Header */}
-      <div className="text-center mb-6">
-        <h1 className="text-3xl font-bold">All Foods</h1>
-        <p className="text-gray-500 mt-2">Explore food from various categories.</p>
+      <div className="text-center mb-8">
+        <h1 className="text-3xl sm:text-4xl font-bold">All Foods</h1>
+        <p className="text-gray-500 mt-2 text-sm sm:text-base">
+          Explore food from various categories.
+        </p>
       </div>
 
       {/* Search Bar */}
       <form
         onSubmit={handleSearch}
-        className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10"
+        className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-10 w-full max-w-2xl mx-auto"
       >
         <input
           type="search"
           name="search"
           placeholder="Search foods..."
-          className="w-full sm:w-80 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          className="w-full sm:flex-1 px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-pink-500 transition"
         />
         <button
           type="submit"
-          className="px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 to-red-600 text-white font-semibold hover:from-red-600 hover:to-pink-500 transition-all"
+          className="w-full sm:w-auto px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 to-red-600 text-white font-semibold hover:from-red-600 hover:to-pink-500 transition-all"
         >
           {loading ? "Searching..." : "Search"}
         </button>
@@ -184,7 +164,7 @@ const AllModels = () => {
           <LoadingSpinner height="h-64" />
         </div>
       ) : models.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {models.map((model) => (
             <ModelCard
               key={model._id}
@@ -194,10 +174,12 @@ const AllModels = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500 mt-10">No foods found.</p>
+        <p className="text-center text-gray-500 mt-10 text-sm sm:text-base">
+          No foods found.
+        </p>
       )}
     </div>
   );
 };
-export default AllModels;
 
+export default AllModels;
