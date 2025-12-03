@@ -1,177 +1,12 @@
 
 
-// import { useLoaderData } from "react-router-dom";
-// import { useState, useContext } from "react";
-// import { AuthContext } from "../../context/AuthContext";
-
-// const ModelDetails = () => {
-//   const data = useLoaderData();
-//   const model = data?.data || data || {}; // safe fallback
-//   const { user } = useContext(AuthContext);
-
-//   const [showModal, setShowModal] = useState(false);
-//   const [locationInput, setLocationInput] = useState("");
-//   const [reasonInput, setReasonInput] = useState("");
-//   const [contactInput, setContactInput] = useState("");
-
-//   if (!model || Object.keys(model).length === 0) {
-//     return <p className="text-center mt-10 text-lg">No data found</p>;
-//   }
-
-//   const displayTitle = model.title || model.name || "No Title";
-
-//   const {
-//     image,
-//     thumbnail,
-//     category,
-//     seller_name,
-//     description,
-//     price_min,
-//     price_max,
-//     location,
-//   } = model;
-
-//   const imgSrc = image || thumbnail || "https://via.placeholder.com/400";
-
-//   const handleSubmitRequest = async (e) => {
-//     e.preventDefault();
-//     if (!user) return alert("Please login first");
-
-//     const requestData = {
-//       foodId: model._id,
-//       foodName: displayTitle,
-//       requesterEmail: user.email,
-//       requesterName: user.displayName,
-//       requesterPhoto: user.photoURL,
-//       location: locationInput,
-//       reason: reasonInput,
-//       contact: contactInput,
-//       status: "pending",
-//       createdAt: new Date(),
-//     };
-
-//     try {
-//       const res = await fetch("http://localhost:4000/foodRequests", {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(requestData),
-//       });
-//       const result = await res.json();
-//       if (result.success) {
-//         alert("Request submitted successfully!");
-//         setShowModal(false);
-//         setLocationInput("");
-//         setReasonInput("");
-//         setContactInput("");
-//       } else {
-//         alert(result.message || "Failed to submit request");
-//       }
-//     } catch (err) {
-//       console.error(err);
-//       alert("Server error. Try again later.");
-//     }
-//   };
-
-//   return (
-//     <div className="max-w-3xl mx-auto p-5">
-//       <div className="card bg-base-100 shadow-xl rounded-2xl">
-//         <figure className="h-72 overflow-hidden rounded-t-2xl">
-//           <img
-//             src={imgSrc}
-//             alt={displayTitle}
-//             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-//           />
-//         </figure>
-
-//         <div className="card-body space-y-2">
-//           <h1 className="text-3xl font-bold text-gray-800">{displayTitle}</h1>
-//           <div className="badge badge-secondary">{category || "No Category"}</div>
-
-//           <p>
-//             <strong>Seller:</strong> {seller_name || "Unknown"}
-//           </p>
-//           <p>
-//             <strong>Location:</strong> {location || "Unknown"}
-//           </p>
-//           <p className="text-gray-600">{description || "No description available"}</p>
-//           <p className="text-lg font-semibold text-pink-600">
-//             Price: ৳{price_min || 0} - ৳{price_max || 0}
-//           </p>
-
-//           <button
-//             onClick={() => setShowModal(true)}
-//             className="bg-blue-500 text-white px-4 py-2 rounded mt-3"
-//           >
-//             Request Food
-//           </button>
-//         </div>
-//       </div>
-
-//       {showModal && (
-//         <div className="fixed inset-0 bg-pink bg-opacity-50 flex justify-center items-center z-50 bg-teal-500">
-//           <form
-//             onSubmit={handleSubmitRequest}
-//             className="bg-blue p-6 rounded w-96 space-y-4 bg-fuchsia-500"
-//           >
-//             <h2 className="text-xl font-bold">Request Food</h2>
-
-//             <input
-//               type="text"
-//               placeholder="Location"
-//               value={locationInput}
-//               onChange={(e) => setLocationInput(e.target.value)}
-//               required
-//               className="border p-2 w-full rounded"
-//             />
-
-//             <textarea
-//               placeholder="Why Need Food"
-//               value={reasonInput}
-//               onChange={(e) => setReasonInput(e.target.value)}
-//               required
-//               className="border p-2 w-full rounded"
-//             />
-
-//             <input
-//               type="text"
-//               placeholder="Contact No."
-//               value={contactInput}
-//               onChange={(e) => setContactInput(e.target.value)}
-//               required
-//               className="border p-2 w-full rounded"
-//             />
-
-//             <div className="flex justify-end space-x-2">
-//               <button
-//                 type="button"
-//                 onClick={() => setShowModal(false)}
-//                 className="px-4 py-2 border rounded"
-//               >
-//                 Cancel
-//               </button>
-//               <button
-//                 type="submit"
-//                 className="px-4 py-2 bg-green-500 text-blue rounded"
-//               >
-//                 Submit
-//               </button>
-//             </div>
-//           </form>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default ModelDetails;
-
 import { useLoaderData } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const ModelDetails = () => {
   const data = useLoaderData();
-  const model = data?.data || data || {}; // safe fallback
+  const model = data?.data || data || {};
   const { user } = useContext(AuthContext);
 
   const [showModal, setShowModal] = useState(false);
@@ -184,9 +19,23 @@ const ModelDetails = () => {
   }
 
   const displayTitle = model.title || model.name || "No Title";
-  const { image, thumbnail, category, seller_name, description, price_min, price_max, location } = model;
 
-  // Use thumbnail if available for smaller display
+  const {
+    image,
+    thumbnail,
+    category,
+    seller_name,
+    description,
+    location,
+    priceMin,
+    priceMax,
+    price_min,
+    price_max,
+  } = model;
+
+  const priceMinVal = priceMin ?? price_min ?? "N/A";
+  const priceMaxVal = priceMax ?? price_max ?? "N/A";
+
   const imgSrc = thumbnail || image || "https://via.placeholder.com/400";
 
   const handleSubmitRequest = async (e) => {
@@ -199,15 +48,15 @@ const ModelDetails = () => {
       requesterEmail: user.email,
       requesterName: user.displayName,
       requesterPhoto: user.photoURL,
-      location: locationInput,
-      reason: reasonInput,
-      contact: contactInput,
+      location: locationInput.trim(),
+      reason: reasonInput.trim(),
+      contact: contactInput.trim(),
       status: "pending",
       createdAt: new Date(),
     };
 
     try {
-      const res = await fetch("http://localhost:4000/foodRequests", {
+      const res = await fetch("https://3d-model-server.vercel.app/foodRequests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestData),
@@ -215,10 +64,7 @@ const ModelDetails = () => {
       const result = await res.json();
       if (result.success) {
         alert("Request submitted successfully!");
-        setShowModal(false);
-        setLocationInput("");
-        setReasonInput("");
-        setContactInput("");
+        closeModal();
       } else {
         alert(result.message || "Failed to submit request");
       }
@@ -228,36 +74,46 @@ const ModelDetails = () => {
     }
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+    setLocationInput("");
+    setReasonInput("");
+    setContactInput("");
+  };
+
   return (
-    <div className="max-w-3xl mx-auto p-5">
-      <div className="card bg-base-100 shadow-xl rounded-2xl">
-        {/* Smaller, compact image */}
-        <figure className="h-48 sm:h-56 md:h-64 overflow-hidden rounded-t-2xl">
+    <div className="max-w-4xl mx-auto p-4 sm:p-6">
+      <div className="card bg-base-100 shadow-xl rounded-2xl overflow-hidden">
+        <figure className="h-64 sm:h-80 md:h-96 w-full overflow-hidden">
           <img
             src={imgSrc}
             alt={displayTitle}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "https://via.placeholder.com/400";
+            }}
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
           />
         </figure>
 
-        <div className="card-body space-y-2">
-          <h1 className="text-3xl font-bold text-gray-800">{displayTitle}</h1>
+        <div className="card-body p-4 sm:p-6 space-y-3">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">{displayTitle}</h1>
           <div className="badge badge-secondary">{category || "No Category"}</div>
 
-          <p>
+          <p className="text-sm sm:text-base">
             <strong>Seller:</strong> {seller_name || "Unknown"}
           </p>
-          <p>
+          <p className="text-sm sm:text-base">
             <strong>Location:</strong> {location || "Unknown"}
           </p>
-          <p className="text-gray-600">{description || "No description available"}</p>
-          <p className="text-lg font-semibold text-pink-600">
-            Price: ৳{price_min || 0} - ৳{price_max || 0}
+          <p className="text-gray-600 text-sm sm:text-base">{description || "No description available"}</p>
+          <p className="text-lg sm:text-xl font-semibold text-pink-600">
+            Price: ৳{priceMinVal} - ৳{priceMaxVal}
           </p>
 
           <button
             onClick={() => setShowModal(true)}
-            className="bg-blue-500 text-white px-4 py-2 rounded mt-3"
+            className="bg-blue-500 text-white px-4 py-2 rounded mt-2 sm:mt-3 hover:bg-blue-600 transition-colors"
           >
             Request Food
           </button>
@@ -265,12 +121,16 @@ const ModelDetails = () => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4 overflow-auto"
+          onClick={closeModal}
+        >
           <form
             onSubmit={handleSubmitRequest}
-            className="bg-white rounded-lg w-full max-w-md p-6 space-y-4"
+            className="bg-pink-400 rounded-lg w-full max-w-md p-6 space-y-4"
+            onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-xl font-bold">Request Food</h2>
+            <h2 className="text-xl font-bold text-white">Request Food</h2>
 
             <input
               type="text"
@@ -298,15 +158,18 @@ const ModelDetails = () => {
               className="border p-2 w-full rounded"
             />
 
-            <div className="flex justify-end space-x-2">
+            <div className="flex flex-col sm:flex-row justify-end gap-2 mt-2">
               <button
                 type="button"
-                onClick={() => setShowModal(false)}
-                className="px-4 py-2 border rounded"
+                onClick={closeModal}
+                className="px-4 py-2 border rounded hover:bg-gray-200 transition-colors"
               >
                 Cancel
               </button>
-              <button type="submit" className="px-4 py-2 bg-green-500 text-blue rounded">
+              <button
+                type="submit"
+                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors"
+              >
                 Submit
               </button>
             </div>

@@ -1,6 +1,4 @@
 
-
-
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../Pages/Home/Home";
@@ -12,11 +10,12 @@ import PrivateRoute from "./PrivateRoute";
 import AddModel from "../Pages/AddModel/AddModel";
 import ModelDetails from "../Pages/ModelDetails/ModelDetails";
 import UpdateModel from "../Pages/UpdateModel/UpdateModel";
-import UpdateFood from "../Pages/UpdateFood/UpdateFood"; // <-- Import UpdateFood
+import UpdateFood from "../Pages/UpdateFood/UpdateFood";
 import MyModels from "../Pages/MyModels/MyModels";
 import MyDownloads from "../Pages/MyDownloads/MyDownloads";
 import ManageMyFoods from "../Pages/ManageMyFoods/ManageMyFoods";
 import MyFoodRequests from "../Pages/MyFoodRequests/MyFoodRequests";
+import NotFound from "../Pages/NotFound"; 
 
 export const router = createBrowserRouter([
   {
@@ -42,7 +41,7 @@ export const router = createBrowserRouter([
         element: <AllModels />,
         loader: async () => {
           try {
-            const res = await fetch("http://localhost:4000/models");
+            const res = await fetch("https://3d-model-server.vercel.app/models");
             if (!res.ok) throw new Error("Failed to load all models");
             return res.json();
           } catch (err) {
@@ -76,7 +75,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           try {
-            const res = await fetch(`http://localhost:4000/models/${params.id}`);
+            const res = await fetch(`https://3d-model-server.vercel.app/models/${params.id}`);
             if (!res.ok) throw new Error("Failed to load model details");
             return res.json();
           } catch (err) {
@@ -94,25 +93,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           try {
-            const res = await fetch(`http://localhost:4000/models/${params.id}`);
-            if (!res.ok) throw new Error("Failed to load model for update");
-            return res.json();
-          } catch (err) {
-            console.error("Update Model Loader Error:", err);
-            return {};
-          }
-        },
-      },
-       {
-        path: "/update-model/:id",
-        element: (
-          <PrivateRoute>
-            <UpdateModel />
-          </PrivateRoute>
-        ),
-        loader: async ({ params }) => {
-          try {
-            const res = await fetch(`http://localhost:4000/models/${params.id}`);
+            const res = await fetch(`https://3d-model-server.vercel.app/models/${params.id}`);
             if (!res.ok) throw new Error("Failed to load model for update");
             return res.json();
           } catch (err) {
@@ -122,7 +103,7 @@ export const router = createBrowserRouter([
         },
       },
       {
-        path: "/update-food/:id", // <-- Add UpdateFood route
+        path: "/update-food/:id",
         element: (
           <PrivateRoute>
             <UpdateFood />
@@ -130,7 +111,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           try {
-            const res = await fetch(`http://localhost:4000/foods/${params.id}`);
+            const res = await fetch(`https://3d-model-server.vercel.app/foods/${params.id}`);
             if (!res.ok) throw new Error("Failed to load food for update");
             return res.json();
           } catch (err) {
@@ -173,9 +154,11 @@ export const router = createBrowserRouter([
       },
       { path: "/auth/login", element: <Login /> },
       { path: "/auth/register", element: <Register /> },
+
+      // Wildcard route for 404 page
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);
-
 
 
