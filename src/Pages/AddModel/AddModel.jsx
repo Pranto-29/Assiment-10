@@ -24,7 +24,7 @@
 //       email: user.email  
 //     };
 
-//     fetch('https://3d-model-server.vercel.app/foods', {
+//     fetch('https://server-client-delta.vercel.app/foods', {
 //       method: "POST",
 //       headers: {
 //         "Content-Type": "application/json",
@@ -171,7 +171,7 @@ const AddModal = () => {
       email: user.email,
     };
 
-    fetch("https://3d-model-server.vercel.app/foods", {
+    fetch("https://server-client-delta.vercel.app/foods", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

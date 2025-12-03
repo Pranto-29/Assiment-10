@@ -13,7 +13,7 @@
 //     const fetchRequests = async () => {
 //       try {
 //         const res = await fetch(
-//           `https://3d-model-server.vercel.app/my-food-requests?email=${user.email}`,
+//           `https://server-client-delta.vercel.app/my-food-requests?email=${user.email}`,
 //           {
 //             headers: { authorization: `Bearer ${user.accessToken}` },
 //           }
@@ -113,7 +113,7 @@ const MyFoodRequests = () => {
     const fetchRequests = async () => {
       try {
         const res = await fetch(
-          `https://3d-model-server.vercel.app/my-food-requests?email=${user.email}`,
+          `https://server-client-delta.vercel.app/my-food-requests?email=${user.email}`,
           {
             headers: { authorization: `Bearer ${user.accessToken}` },
           }

@@ -10,7 +10,7 @@
 
 //   // Fetch food data on mount
 //   useEffect(() => {
-//     fetch(`https://3d-model-server.vercel.app/foods/${id}`)
+//     fetch(`https://server-client-delta.vercel.app/foods/${id}`)
 //       .then(res => res.json())
 //       .then(data => {
 //         const fetchedFood = data?.data || { name: "", category: "", expireDate: "" };
@@ -36,7 +36,7 @@
 //       expireDate: new Date(food.expireDate),
 //     };
 
-//     fetch(`https://3d-model-server.vercel.app/foods/${id}`, {
+//     fetch(`https://server-client-delta.vercel.app/foods/${id}`, {
 //       method: "PUT",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify(updatedFood),
@@ -115,7 +115,7 @@ const UpdateFood = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://3d-model-server.vercel.app/foods/${id}`)
+    fetch(`https://server-client-delta.vercel.app/foods/${id}`)
       .then(res => res.json())
       .then(data => {
         const fetched = data?.data || food;
@@ -137,7 +137,7 @@ const UpdateFood = () => {
       priceMax: Number(food.priceMax),
     };
 
-    fetch(`https://3d-model-server.vercel.app/foods/${id}`, {
+    fetch(`https://server-client-delta.vercel.app/foods/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedFood),

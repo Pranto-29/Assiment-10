@@ -1,4 +1,7 @@
 
+
+
+
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../Pages/Home/Home";
@@ -15,7 +18,7 @@ import MyModels from "../Pages/MyModels/MyModels";
 import MyDownloads from "../Pages/MyDownloads/MyDownloads";
 import ManageMyFoods from "../Pages/ManageMyFoods/ManageMyFoods";
 import MyFoodRequests from "../Pages/MyFoodRequests/MyFoodRequests";
-import NotFound from "../Pages/NotFound"; 
+import NotFound from "../Pages/NotFound"; // <-- Import 404 page
 
 export const router = createBrowserRouter([
   {
@@ -27,7 +30,7 @@ export const router = createBrowserRouter([
         element: <Home />,
         loader: async () => {
           try {
-            const res = await fetch("https://3d-model-server.vercel.app/latest-models");
+            const res = await fetch("https://server-client-delta.vercel.app/latest-models");
             if (!res.ok) throw new Error("Failed to load latest models");
             return res.json();
           } catch (err) {
@@ -41,7 +44,7 @@ export const router = createBrowserRouter([
         element: <AllModels />,
         loader: async () => {
           try {
-            const res = await fetch("https://3d-model-server.vercel.app/models");
+            const res = await fetch("https://server-client-delta.vercel.app/models");
             if (!res.ok) throw new Error("Failed to load all models");
             return res.json();
           } catch (err) {
@@ -75,7 +78,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           try {
-            const res = await fetch(`https://3d-model-server.vercel.app/models/${params.id}`);
+            const res = await fetch(`https://server-client-delta.vercel.app/models/${params.id}`);
             if (!res.ok) throw new Error("Failed to load model details");
             return res.json();
           } catch (err) {
@@ -93,7 +96,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           try {
-            const res = await fetch(`https://3d-model-server.vercel.app/models/${params.id}`);
+            const res = await fetch(`https://server-client-delta.vercel.app/models/${params.id}`);
             if (!res.ok) throw new Error("Failed to load model for update");
             return res.json();
           } catch (err) {
@@ -111,7 +114,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           try {
-            const res = await fetch(`https://3d-model-server.vercel.app/foods/${params.id}`);
+            const res = await fetch(`https://server-client-delta.vercel.app/foods/${params.id}`);
             if (!res.ok) throw new Error("Failed to load food for update");
             return res.json();
           } catch (err) {
@@ -160,5 +163,4 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
-
 

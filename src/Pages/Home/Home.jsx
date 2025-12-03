@@ -10,7 +10,7 @@
 //   const [error, setError] = useState(null);
 
 //   useEffect(() => {
-//     fetch("https://3d-model-server.vercel.app/models")
+//     fetch("https://server-client-delta.vercel.app/models")
 //       .then((res) => {
 //         if (!res.ok) throw new Error("Failed to fetch models");
 //         return res.json();
@@ -73,7 +73,7 @@ const Home = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("https://3d-model-server.vercel.app/models")
+    fetch("https://server-client-delta.vercel.app/models")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch models");
         return res.json();
