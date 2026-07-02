@@ -12,10 +12,8 @@ import Register from "../Pages/Auth/Registration";
 import PrivateRoute from "./PrivateRoute";
 import AddModel from "../Pages/AddModel/AddModel";
 import ModelDetails from "../Pages/ModelDetails/ModelDetails";
-import UpdateModel from "../Pages/UpdateModel/UpdateModel";
 import UpdateFood from "../Pages/UpdateFood/UpdateFood";
 import MyModels from "../Pages/MyModels/MyModels";
-import MyDownloads from "../Pages/MyDownloads/MyDownloads";
 import ManageMyFoods from "../Pages/ManageMyFoods/ManageMyFoods";
 import MyFoodRequests from "../Pages/MyFoodRequests/MyFoodRequests";
 import NotFound from "../Pages/NotFound"; // <-- Import 404 page
@@ -30,7 +28,7 @@ export const router = createBrowserRouter([
         element: <Home />,
         loader: async () => {
           try {
-            const res = await fetch("https://server-client-delta.vercel.app/latest-models");
+            const res = await fetch("https://sever-site-coding.vercel.app/latest-models");
             if (!res.ok) throw new Error("Failed to load latest models");
             return res.json();
           } catch (err) {
@@ -44,7 +42,7 @@ export const router = createBrowserRouter([
         element: <AllModels />,
         loader: async () => {
           try {
-            const res = await fetch("https://server-client-delta.vercel.app/models");
+            const res = await fetch("https://sever-site-coding.vercel.app/models");
             if (!res.ok) throw new Error("Failed to load all models");
             return res.json();
           } catch (err) {
@@ -78,7 +76,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           try {
-            const res = await fetch(`https://server-client-delta.vercel.app/models/${params.id}`);
+            const res = await fetch(`https://sever-site-coding-d8puoagq8-assiment-10s-projects.vercel.app/models/${params.id}`);
             if (!res.ok) throw new Error("Failed to load model details");
             return res.json();
           } catch (err) {
@@ -87,24 +85,24 @@ export const router = createBrowserRouter([
           }
         },
       },
-      {
-        path: "/update-model/:id",
-        element: (
-          <PrivateRoute>
-            <UpdateModel />
-          </PrivateRoute>
-        ),
-        loader: async ({ params }) => {
-          try {
-            const res = await fetch(`https://server-client-delta.vercel.app/models/${params.id}`);
-            if (!res.ok) throw new Error("Failed to load model for update");
-            return res.json();
-          } catch (err) {
-            console.error("Update Model Loader Error:", err);
-            return {};
-          }
-        },
-      },
+      // {
+      //   path: "/update-model/:id",
+      //   element: (
+      //     <PrivateRoute>
+      //       <UpdateModel />
+      //     </PrivateRoute>
+      //   ),
+      //   loader: async ({ params }) => {
+      //     try {
+      //       const res = await fetch(`https://sever-site-coding-d8puoagq8-assiment-10s-projects.vercel.app/models/${params.id}`);
+      //       if (!res.ok) throw new Error("Failed to load model for update");
+      //       return res.json();
+      //     } catch (err) {
+      //       console.error("Update Model Loader Error:", err);
+      //       return {};
+      //     }
+      //   },
+      // },
       {
         path: "/update-food/:id",
         element: (
@@ -114,7 +112,7 @@ export const router = createBrowserRouter([
         ),
         loader: async ({ params }) => {
           try {
-            const res = await fetch(`https://server-client-delta.vercel.app/foods/${params.id}`);
+            const res = await fetch(`https://sever-site-coding-d8puoagq8-assiment-10s-projects.vercel.app/foods/${params.id}`);
             if (!res.ok) throw new Error("Failed to load food for update");
             return res.json();
           } catch (err) {
@@ -131,14 +129,14 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      {
-        path: "/my-downloads",
-        element: (
-          <PrivateRoute>
-            <MyDownloads />
-          </PrivateRoute>
-        ),
-      },
+      // {
+      //   path: "/my-downloads",
+      //   element: (
+      //     <PrivateRoute>
+      //       <MyDownloads />
+      //     </PrivateRoute>
+      //   ),
+      // },
       {
         path: "/manage-my-foods",
         element: (

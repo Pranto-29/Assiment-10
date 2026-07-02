@@ -56,7 +56,7 @@ const ModelDetails = () => {
     };
 
     try {
-      const res = await fetch("https://server-client-delta.vercel.app/foodRequests", {
+      const res = await fetch("https://sever-site-coding.vercel.app/foodRequests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestData),

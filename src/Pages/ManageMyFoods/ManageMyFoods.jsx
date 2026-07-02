@@ -14,7 +14,7 @@
 //   useEffect(() => {
 //     if (!user?.email) return;
 
-//     fetch(`https://server-client-delta.vercel.app/manage-my-foods?email=${user?.email}`)
+//     fetch(`https://sever-site-coding.vercel.appmanage-my-foods?email=${user?.email}`)
 //       .then(res => res.json())
 //       .then(data => {
 //         setFoods(data.data || []);
@@ -35,7 +35,7 @@
 //       confirmButtonText: "Yes, delete"
 //     }).then(result => {
 //       if (result.isConfirmed) {
-//         fetch(`https://server-client-delta.vercel.app/foods/${id}`, { method: "DELETE" })
+//         fetch(`https://sever-site-coding.vercel.appfoods/${id}`, { method: "DELETE" })
 //           .then(res => res.json())
 //           .then(() => setFoods(prev => prev.filter(f => f._id !== id)));
 //       }
@@ -112,7 +112,7 @@ const ManageMyFoods = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`https://server-client-delta.vercel.app/manage-my-foods?email=${user?.email}`)
+    fetch(`https://sever-site-coding.vercel.app/manage-my-foods?email=${user?.email}`)
       .then(res => res.json())
       .then(data => {
         setFoods(data.data || []);
@@ -133,7 +133,7 @@ const ManageMyFoods = () => {
       confirmButtonText: "Yes, delete"
     }).then(result => {
       if (result.isConfirmed) {
-        fetch(`https://server-client-delta.vercel.app/foods/${id}`, { method: "DELETE" })
+        fetch(`https://sever-site-coding.vercel.app/manage-my-foods${id}`, { method: "DELETE" })
           .then(res => res.json())
           .then(() => setFoods(prev => prev.filter(f => f._id !== id)));
       }
